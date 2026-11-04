@@ -1,0 +1,21 @@
+Input file: results/resnet18_b0_pc_histogram.txt
+Parsed rows: 14,077
+Unique PCs: 14,077
+Sum of histogram counts: 82,927,284,711
+Maximum PC count: 1,691,140,096
+Minimum PC count: 1
+Median PC count: 8
+
+Top-PC coverage:
+Top 10 PCs: 16,911,400,960 counts (20.393%)
+Top 20 PCs: 33,822,801,920 counts (40.786%)
+Top 50 PCs: 81,280,846,848 counts (98.015%)
+Top 100 PCs: 82,481,178,983 counts (99.462%)
+Top 500 PCs: 82,915,578,033 counts (99.986%)
+Top 1,000 PCs: 82,922,574,899 counts (99.994%)
+PC count >= 1: 14,077 PCs; 100.000% of summed counts
+PC count >= 10: 6,460 PCs; 100.000% of summed counts
+PC count >= 100: 3,426 PCs; 100.000% of summed counts
+PC count >= 1,000: 2,322 PCs; 99.999% of summed counts
+PC count >= 10,000: 771 PCs; 99.993% of summed counts
+PC count >= 1,000,000: 245 PCs; 99.842% of summed counts

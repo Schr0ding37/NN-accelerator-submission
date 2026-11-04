@@ -1,0 +1,46 @@
+B0 Function and Operator Contribution (first-pass attribution)
+Histogram PCs: 14,077
+Histogram dynamic-count sum: 82,927,284,711
+PCs attributed to ELF code range: 10,229
+Dynamic count attributed to ELF code range: 82,900,104,069
+Unmatched PCs: 3,848
+Unmatched dynamic count: 27,180,642
+
+Top 30 functions by dynamic count:
+  82,606,450,546    99.65%  tflite::micro::reference_integer_ops::ConvPerChannel(tflite::micro::ConvParams const&, int const*, int const*, tflite::micro::RuntimeShape const&, signed char const*, tflite::micro::RuntimeShape const&, signed char const*, tflite::micro::RuntimeShape const&, int const*, tflite::micro::RuntimeShape const&, signed char*) [clone .isra.0]
+      91,014,458     0.11%  tflite::micro::MultiplyByQuantizedMultiplier(int, int, int)
+      90,605,848     0.11%  tflite::micro::EvalAddQuantized(tflite::micro::TfLiteContext*, tflite::micro::TfLiteNode*, tflite::micro::TfLiteAddParams*, tflite::micro::OpDataAdd const*, tflite::micro::TfLiteEvalTensor const*, tflite::micro::TfLiteEvalTensor const*, tflite::micro::TfLiteEvalTensor*)
+      69,684,988     0.08%  tflite::micro::reference_integer_ops::MaxPool(tflite::micro::PoolParams const&, tflite::micro::RuntimeShape const&, signed char const*, tflite::micro::RuntimeShape const&, signed char*)
+      27,541,091     0.03%  void tflite::micro::reference_ops::PadImpl<signed char, signed char>(tflite::micro::PadParams const&, tflite::micro::RuntimeShape const&, signed char const*, signed char const*, tflite::micro::RuntimeShape const&, signed char*) [clone .isra.0]
+       4,122,173     0.00%  tflite::micro::(anonymous namespace)::FullyConnectedEval(tflite::micro::TfLiteContext*, tflite::micro::TfLiteNode*)
+       3,025,006     0.00%  void tflite::micro::reference_ops::transpose_internal::TransposeImpl<signed char>(int, int, int const*, signed char const*, int const*, signed char*, int const*, int const*)
+       1,221,823     0.00%  main
+       1,212,342     0.00%  __muldf3
+         642,063     0.00%  _svfprintf_r
+         596,392     0.00%  __divdf3
+         464,496     0.00%  tflite::micro::(anonymous namespace)::AverageEval(tflite::micro::TfLiteContext*, tflite::micro::TfLiteNode*)
+         289,736     0.00%  tflite::internal::InitializeTfLiteTensorFromFlatbuffer(tflite::IPersistentBufferAllocator*, tflite::INonPersistentBufferAllocator*, bool, tflite::Tensor const&, flatbuffers::Vector<flatbuffers::Offset<tflite::Buffer>, unsigned int> const*, tflite::micro::TfLiteTensor*)
+         286,738     0.00%  memset
+         267,082     0.00%  flatbuffers::Table::GetOptionalFieldOffset(unsigned short) const
+         239,148     0.00%  tflite::QuantizationParameters::scale() const
+         236,544     0.00%  tflite::QuantizationParameters::zero_point() const
+         199,335     0.00%  __ssprint_r
+         198,032     0.00%  tflite::micro::QuantizeMultiplier(double, int*, int*)
+         186,368     0.00%  frexp
+         162,783     0.00%  __ssputs_r
+         157,474     0.00%  round
+         150,980     0.00%  tflite::micro::PopulateConvolutionQuantizationParams(tflite::micro::TfLiteContext*, tflite::micro::TfLiteTensor const*, tflite::micro::TfLiteTensor const*, tflite::micro::TfLiteTensor const*, tflite::micro::TfLiteTensor*, tflite::micro::TfLiteFusedActivation const&, int*, int*, int*, int*, int*, int*, int)
+         147,325     0.00%  __extendsfdf2
+         116,970     0.00%  flatbuffers::Vector<long, unsigned int>::Get(unsigned int) const
+         116,480     0.00%  __fixdfdi
+         110,640     0.00%  __eqdf2
+          95,904     0.00%  memmove
+          94,440     0.00%  memcpy
+          66,924     0.00%  vsnprintf
+
+Initial operator grouping (name-based; not yet inline-complete):
+  82,606,456,218    99.65%      3 functions  Convolution
+     181,821,506     0.22%      6 functions  Quantize / requantize
+      69,685,428     0.08%      4 functions  Pooling
+      37,994,454     0.05%      0 functions  Other / unattributed
+       4,146,463     0.01%      6 functions  Fully connected
