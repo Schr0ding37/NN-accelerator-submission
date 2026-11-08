@@ -1,0 +1,155 @@
+===========================================================================
+X1.3 INSTRUCTION HISTOGRAM SUMMARY
+===========================================================================
+
+[1] Overall Statistics
+---------------------------------------------------------------------------
+Dynamic instruction count : 25,640,741,743
+Unique PCs                : 14,186
+Declared histogram size   : 14,186
+Mapped execution count    : 25,613,560,081
+Unmapped execution count  : 27,181,662
+Mapped percentage        : 99.8940%
+
+[2] Top 50 PCs
+---------------------------------------------------------------------------
+Rank  PC                               Count    Percentage  Assembly
+----------------------------------------------------------------------------------------------------------------------------------
+1     0x00000000000179be         196,640,768       0.7669%  lw a4,0(s8)
+2     0x00000000000179c2         196,640,768       0.7669%  bne a4,s1,179d0 <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x1c6>
+3     0x00000000000179c6         196,640,768       0.7669%  lw a4,4(s8)
+4     0x00000000000179ca         196,640,768       0.7669%  bnez a4,179d4 <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x1ca>
+5     0x00000000000179d4         196,640,768       0.7669%  bge s9,a4,179d0 <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x1c6>
+6     0x00000000000179d8         196,640,768       0.7669%  lw a7,8(s8)
+7     0x00000000000179dc         196,640,768       0.7669%  bnez a7,17d3e <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x534>
+8     0x00000000000179fa         196,640,768       0.7669%  lw a4,0(s0)
+9     0x00000000000179fc         196,640,768       0.7669%  bne a4,s1,179d0 <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x1c6>
+10    0x0000000000017a00         196,640,768       0.7669%  lw a4,4(s0)
+11    0x0000000000017a02         196,640,768       0.7669%  bnez a4,17d60 <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x556>
+12    0x0000000000017a28         196,640,768       0.7669%  mulw a7,s9,a7
+13    0x0000000000017a2c         196,640,768       0.7669%  addw a7,a7,t1
+14    0x0000000000017a30         196,640,768       0.7669%  mulw a7,a7,t4
+15    0x0000000000017a34         196,640,768       0.7669%  addw a7,a7,a3
+16    0x0000000000017a38         196,640,768       0.7669%  mulw a7,a7,t5
+17    0x0000000000017a3c         196,640,768       0.7669%  addw a7,a7,a6
+18    0x0000000000017a40         196,640,768       0.7669%  add a7,a7,s5
+19    0x0000000000017a42         196,640,768       0.7669%  ld a7,0(a7)
+20    0x0000000000017a46         196,640,768       0.7669%  mulw a4,a4,s2
+21    0x0000000000017a4a         196,640,768       0.7669%  addw a4,a4,t3
+22    0x0000000000017a4e         196,640,768       0.7669%  mulw a4,a4,s11
+23    0x0000000000017a52         196,640,768       0.7669%  addw a4,a4,a1
+24    0x0000000000017a54         196,640,768       0.7669%  mulw a4,a4,s4
+25    0x0000000000017a58         196,640,768       0.7669%  addw a4,a4,a2
+26    0x0000000000017a5a         196,640,768       0.7669%  add a4,a4,s6
+27    0x0000000000017a5c         196,640,768       0.7669%  ld a4,0(a4)
+28    0x0000000000017a5e         196,640,768       0.7669%  andi t4,a4,128
+29    0x0000000000017a62         196,640,768       0.7669%  zext.b t5,a4
+30    0x0000000000017a66         196,640,768       0.7669%  beqz t4,17a6e <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x264>
+31    0x0000000000017a6e         196,640,768       0.7669%  srli t4,a4,0x8
+32    0x0000000000017a72         196,640,768       0.7669%  andi s4,t4,128
+33    0x0000000000017a76         196,640,768       0.7669%  zext.b t4,t4
+34    0x0000000000017a7a         196,640,768       0.7669%  beqz s4,17a82 <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x278>
+35    0x0000000000017a82         196,640,768       0.7669%  addw t5,t5,t4
+36    0x0000000000017a86         196,640,768       0.7669%  srli t4,a4,0x10
+37    0x0000000000017a8a         196,640,768       0.7669%  andi s4,t4,128
+38    0x0000000000017a8e         196,640,768       0.7669%  zext.b t4,t4
+39    0x0000000000017a92         196,640,768       0.7669%  beqz s4,17a9a <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x290>
+40    0x0000000000017a9a         196,640,768       0.7669%  slli s4,a4,0x20
+41    0x0000000000017a9e         196,640,768       0.7669%  addw t4,t5,t4
+42    0x0000000000017aa2         196,640,768       0.7669%  srliw t5,a4,0x18
+43    0x0000000000017aa6         196,640,768       0.7669%  bgez s4,17aae <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x2a4>
+44    0x0000000000017aae         196,640,768       0.7669%  addw t4,t4,t5
+45    0x0000000000017ab2         196,640,768       0.7669%  srli t5,a4,0x20
+46    0x0000000000017ab6         196,640,768       0.7669%  andi s4,t5,128
+47    0x0000000000017aba         196,640,768       0.7669%  zext.b t5,t5
+48    0x0000000000017abe         196,640,768       0.7669%  beqz s4,17ac6 <_ZN6tflite5micro21reference_integer_ops14ConvPerChannelERKNS0_10ConvParamsEPKiS6_RKNS0_12RuntimeShapeEPKaS9_SB_S9_S6_S9_Pa.isra.0+0x2bc>
+49    0x0000000000017ac6         196,640,768       0.7669%  addw t4,t4,t5
+50    0x0000000000017aca         196,640,768       0.7669%  srli t5,a4,0x28
+
+[3] Dynamic Instruction Mix (Mapped PCs)
+---------------------------------------------------------------------------
+Mnemonic                 Dynamic Count     Percentage
+-------------------------------------------------------
+addw                     3,833,050,641       14.9649%
+beqz                     3,187,494,574       12.4446%
+lw                       3,027,510,050       11.8200%
+mulw                     2,022,414,921        7.8959%
+bge                      2,019,624,077        7.8850%
+addiw                    1,500,057,555        5.8565%
+andi                     1,376,602,641        5.3745%
+srli                     1,182,471,550        4.6166%
+zext.b                   1,179,850,679        4.6064%
+bne                        924,221,497        3.6083%
+bnez                       840,472,627        3.2814%
+ld                         741,350,525        2.8944%
+add                        648,082,343        2.5302%
+blt                        636,843,496        2.4864%
+bltz                       325,549,460        1.2710%
+srliw                      264,768,598        1.0337%
+sd                         240,873,339        0.9404%
+lb                         240,191,472        0.9378%
+slli                       202,198,258        0.7894%
+mul                        201,444,308        0.7865%
+bgez                       199,556,007        0.7791%
+xqmac8                     196,640,768        0.7677%
+li                         134,013,017        0.5232%
+mv                          79,194,198        0.3092%
+and                         72,902,451        0.2846%
+slt                         72,130,970        0.2816%
+not                         68,123,130        0.2660%
+j                           51,797,478        0.2022%
+addi                        17,560,092        0.0686%
+beq                         15,971,766        0.0624%
+sext.w                      14,122,051        0.0551%
+seqz                        10,810,443        0.0422%
+lui                         10,277,308        0.0401%
+sub                          9,557,636        0.0373%
+sraiw                        8,963,755        0.0350%
+sb                           5,159,994        0.0201%
+blez                         5,047,322        0.0197%
+negw                         4,743,315        0.0185%
+sll                          4,742,874        0.0185%
+sraw                         4,742,632        0.0185%
+srai                         4,527,595        0.0177%
+slliw                        4,216,233        0.0165%
+sllw                         3,995,809        0.0156%
+or                           2,867,059        0.0112%
+ret                          2,714,460        0.0106%
+jal                          2,712,629        0.0106%
+div                          2,484,756        0.0097%
+divw                         2,484,264        0.0097%
+bgtz                         2,260,965        0.0088%
+lbu                          1,860,114        0.0073%
+subw                         1,233,583        0.0048%
+lh                             401,528        0.0016%
+bltu                           227,074        0.0009%
+bgeu                            92,898        0.0004%
+sw                              85,247        0.0003%
+lhu                             80,529        0.0003%
+snez                            58,780        0.0002%
+lwu                             38,512        0.0002%
+xor                             25,597        0.0001%
+divu                            12,495        0.0000%
+remu                            11,648        0.0000%
+mulhu                            9,798        0.0000%
+auipc                            8,782        0.0000%
+srl                              5,846        0.0000%
+srlw                             5,824        0.0000%
+jr                               4,219        0.0000%
+jalr                             1,832        0.0000%
+neg                              1,326        0.0000%
+xori                               583        0.0000%
+slti                               130        0.0000%
+sh                                 122        0.0000%
+remw                                20        0.0000%
+ori                                  3        0.0000%
+sltu                                 3        0.0000%
+
+[Output Tensor]
+---------------------------------------------------------------------------
+Parsed output elements   : 1000
+Expected output elements : 1000
+Output complete          : YES
+Top-1 index               : 245
+Top-1 quantized score     : 40
+

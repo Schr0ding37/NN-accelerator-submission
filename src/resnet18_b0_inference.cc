@@ -144,7 +144,7 @@ export TOOLCHAIN_BIN="$HOME/Desktop/EEproject/workspace/NN-accelerator/src/lib/g
   -I"$TFLM_ROOT" \
   -I"$TFLM_ROOT/tensorflow/lite/micro/tools/make/downloads/flatbuffers/include" \
   -I"$TFLM_ROOT/tensorflow/lite/micro/tools/make/downloads/gemmlowp" \
-  src/tools/resnet18_inference.cc \
+  src/tools/resnet18_b0_inference.cc \
   src/tools/debug_log.cc \
   -Wl,--allow-multiple-definition \
   src/lib/TFLM/riscv64_generic_x86_64_default_gcc/lib/libtensorflow-microlite.a \

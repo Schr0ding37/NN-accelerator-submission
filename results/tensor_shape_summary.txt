@@ -1,0 +1,262 @@
+========================================
+TFLite Tensor Shape Alignment Summary
+========================================
+Model: resnet18_int8_channelwise.tflite
+Block size: 8 INT8 elements
+Total Conv2D operators: 20
+
+Input channels multiple of 8: 19/20
+Weight input channels multiple of 8: 19/20
+Both input and weight multiple of 8: 19/20
+
+========================================
+Per-layer Results
+========================================
+
+Subgraph 0 / Operator 2
+  Input tensor:  g0::conv2d_pad
+  Weight tensor: g0::p_conv1_weight
+  Input shape:   [1, 230, 230, 3]
+  Weight shape:  [64, 7, 7, 3]
+  Input channels: 3
+  Weight input channels: 3
+  Input channels multiple of 8: False
+  Weight channels multiple of 8: False
+  Input tail channels: 3
+  Weight tail channels: 3
+
+Subgraph 0 / Operator 5
+  Input tensor:  g0::max_pool2d_native_nhwc
+  Weight tensor: g0::p_layer1_0_conv1_weight
+  Input shape:   [1, 56, 56, 64]
+  Weight shape:  [64, 3, 3, 64]
+  Input channels: 64
+  Weight input channels: 64
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 6
+  Input tensor:  g0::relu__1
+  Weight tensor: g0::p_layer1_0_conv2_weight
+  Input shape:   [1, 56, 56, 64]
+  Weight shape:  [64, 3, 3, 64]
+  Input channels: 64
+  Weight input channels: 64
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 8
+  Input tensor:  g0::relu__2
+  Weight tensor: g0::p_layer1_1_conv1_weight
+  Input shape:   [1, 56, 56, 64]
+  Weight shape:  [64, 3, 3, 64]
+  Input channels: 64
+  Weight input channels: 64
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 9
+  Input tensor:  g0::relu__3
+  Weight tensor: g0::p_layer1_1_conv2_weight
+  Input shape:   [1, 56, 56, 64]
+  Weight shape:  [64, 3, 3, 64]
+  Input channels: 64
+  Weight input channels: 64
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 12
+  Input tensor:  g0::conv2d_5_pad
+  Weight tensor: g0::p_layer2_0_conv1_weight
+  Input shape:   [1, 58, 58, 64]
+  Weight shape:  [128, 3, 3, 64]
+  Input channels: 64
+  Weight input channels: 64
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 13
+  Input tensor:  g0::relu__5
+  Weight tensor: g0::p_layer2_0_conv2_weight
+  Input shape:   [1, 28, 28, 128]
+  Weight shape:  [128, 3, 3, 128]
+  Input channels: 128
+  Weight input channels: 128
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 14
+  Input tensor:  g0::relu__4
+  Weight tensor: g0::p_layer2_0_downsample_0_weight
+  Input shape:   [1, 56, 56, 64]
+  Weight shape:  [128, 1, 1, 64]
+  Input channels: 64
+  Weight input channels: 64
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 16
+  Input tensor:  g0::relu__6
+  Weight tensor: g0::p_layer2_1_conv1_weight
+  Input shape:   [1, 28, 28, 128]
+  Weight shape:  [128, 3, 3, 128]
+  Input channels: 128
+  Weight input channels: 128
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 17
+  Input tensor:  g0::relu__7
+  Weight tensor: g0::p_layer2_1_conv2_weight
+  Input shape:   [1, 28, 28, 128]
+  Weight shape:  [128, 3, 3, 128]
+  Input channels: 128
+  Weight input channels: 128
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 20
+  Input tensor:  g0::conv2d_10_pad
+  Weight tensor: g0::p_layer3_0_conv1_weight
+  Input shape:   [1, 30, 30, 128]
+  Weight shape:  [256, 3, 3, 128]
+  Input channels: 128
+  Weight input channels: 128
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 21
+  Input tensor:  g0::relu__9
+  Weight tensor: g0::p_layer3_0_conv2_weight
+  Input shape:   [1, 14, 14, 256]
+  Weight shape:  [256, 3, 3, 256]
+  Input channels: 256
+  Weight input channels: 256
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 22
+  Input tensor:  g0::relu__8
+  Weight tensor: g0::p_layer3_0_downsample_0_weight
+  Input shape:   [1, 28, 28, 128]
+  Weight shape:  [256, 1, 1, 128]
+  Input channels: 128
+  Weight input channels: 128
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 24
+  Input tensor:  g0::relu__10
+  Weight tensor: g0::p_layer3_1_conv1_weight
+  Input shape:   [1, 14, 14, 256]
+  Weight shape:  [256, 3, 3, 256]
+  Input channels: 256
+  Weight input channels: 256
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 25
+  Input tensor:  g0::relu__11
+  Weight tensor: g0::p_layer3_1_conv2_weight
+  Input shape:   [1, 14, 14, 256]
+  Weight shape:  [256, 3, 3, 256]
+  Input channels: 256
+  Weight input channels: 256
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 28
+  Input tensor:  g0::conv2d_15_pad
+  Weight tensor: g0::p_layer4_0_conv1_weight
+  Input shape:   [1, 16, 16, 256]
+  Weight shape:  [512, 3, 3, 256]
+  Input channels: 256
+  Weight input channels: 256
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 29
+  Input tensor:  g0::relu__13
+  Weight tensor: g0::p_layer4_0_conv2_weight
+  Input shape:   [1, 7, 7, 512]
+  Weight shape:  [512, 3, 3, 512]
+  Input channels: 512
+  Weight input channels: 512
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 30
+  Input tensor:  g0::relu__12
+  Weight tensor: g0::p_layer4_0_downsample_0_weight
+  Input shape:   [1, 14, 14, 256]
+  Weight shape:  [512, 1, 1, 256]
+  Input channels: 256
+  Weight input channels: 256
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 32
+  Input tensor:  g0::relu__14
+  Weight tensor: g0::p_layer4_1_conv1_weight
+  Input shape:   [1, 7, 7, 512]
+  Weight shape:  [512, 3, 3, 512]
+  Input channels: 512
+  Weight input channels: 512
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+Subgraph 0 / Operator 33
+  Input tensor:  g0::relu__15
+  Weight tensor: g0::p_layer4_1_conv2_weight
+  Input shape:   [1, 7, 7, 512]
+  Weight shape:  [512, 3, 3, 512]
+  Input channels: 512
+  Weight input channels: 512
+  Input channels multiple of 8: True
+  Weight channels multiple of 8: True
+  Input tail channels: 0
+  Weight tail channels: 0
+
+========================================
+Important Notes
+========================================
+1. This script checks tensor shapes only.
+2. Shape alignment does NOT guarantee pointer alignment.
+3. Actual memory address alignment must be checked at runtime.
+4. This script does not verify CV-Wally misaligned-load support.

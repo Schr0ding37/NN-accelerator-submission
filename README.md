@@ -2,50 +2,57 @@
 
 ## 1. Project Overview
 
-This project explores architectural extensions for accelerating INT8 quantized neural-network inference on a bare-metal RV64IMC RISC-V processor using the CV-Wally core.
+This project explores architectural extensions for accelerating INT8 quantized neural-network inference on a RISC-V RV64IMC processor.
 
-Spike is used for ISA-level analysis, while CV-Wally RTL is intended for hardware-level evaluation.
+The target workload is quantized ResNet-18 using TensorFlow Lite for Microcontrollers (TFLM).
+
+Spike is used for ISA-level functional evaluation and dynamic instruction analysis. CV-Wally is intended for subsequent RTL-level hardware evaluation.
+
+The project investigates the effectiveness of a custom packed INT8 multiply-accumulate instruction, Xqmac8, and evaluates different software strategies for preparing packed INT8 data.
 
 ### Current Progress
 
-- B0: Baseline RV64IMC workload characterization — Completed.
-- B1: Software-optimized RV64IMC — Not implemented.
-- X1: RV64IMC + Xqmac — Not implemented.
-- CV-Wally RTL evaluation — Not completed.
-
-The current submission focuses on B0 analysis using quantized ResNet-18.
+| Configuration | Description | Status |
+|---|---|---|
+| B0 | Baseline RV64IMC | Completed |
+| B1 | RV64IMC + 4-way loop unrolling | Completed |
+| X1.1 | RV64IMC + Xqmac8 + software data packing loop | Completed |
+| X1.2 | Xqmac8 + unrolled software data packing | Completed |
+| X1.3 | Xqmac8 + 64-bit load (Zicclsm enabled) | Completed |
+| CV-Wally RTL | Hardware-level evaluation | Pending |
 
 ---
 
 ## 2. Repository Structure
 
-    .
-    ├── README.md
-    ├── results
-    │   ├── B0_measurement
-    │   │   ├── histogram_analysis
-    │   │   │   ├── summary.txt
-    │   │   │   └── top_pcs.csv
-    │   │   ├── instruction_mix_summary.txt
-    │   │   ├── model_mac_summary.md
-    │   │   ├── operator_contribution.txt
-    │   │   └── resnet18_b0_pc_histogram.txt
-    │   └── slides
-    ├── scripts
-    │   ├── analyze_instruction_mix.py
-    │   ├── analyze_model_macs.py
-    │   ├── analyze_operator_contribution.py
-    │   ├── analyze_pc_histogram.py
-    │   └── prepare_model.py
-    └── src
-        ├── model
-        │   ├── imagenet_classes.txt
-        │   ├── resnet18_int8_channelwise.tflite
-        │   ├── resnet18_model_data.h
-        │   ├── resnet18_ops_resolver.h
-        │   └── resnet18_test_image.h
-        ├── resnet18_b0_inference.cc
-        └── resnet18_b0_inference.elf
+```text
+.
+├── README.md
+├── results
+│   ├── alignmentCheck.txt
+│   ├── b0_summary.txt
+│   ├── b1_summary.txt
+│   ├── slides
+│   │   └── Midterm.pptx
+│   ├── tensor_shape_summary.txt
+│   ├── x1.1_xqmac8_summary.txt
+│   ├── x1.2_xqmac8_summary.txt
+│   └── Zicclsm_X1.3_summary.txt
+├── scripts
+│   ├── compare_versions.py
+│   └── prepare_model.py
+└── src
+    ├── model
+    │   ├── imagenet_classes.txt
+    │   ├── resnet18_int8_channelwise.tflite
+    │   ├── resnet18_model_data.h
+    │   ├── resnet18_ops_resolver.h
+    │   └── resnet18_test_image.h
+    ├── resnet18_b0_inference.cc
+    └── xqmac8
+        ├── xqmac8.h
+        └── XQMAC8_SPEC.md
+```
 
 ### Directory and File Description
 
@@ -53,167 +60,215 @@ The current submission focuses on B0 analysis using quantized ResNet-18.
 
 | File | Description |
 |---|---|
-| `resnet18_b0_inference.cc` | C++ B0 inference benchmark. |
-| `resnet18_b0_inference.elf` | Compiled RISC-V inference executable. |
+| `resnet18_b0_inference.cc` | ResNet-18 inference benchmark source. |
 | `model/resnet18_int8_channelwise.tflite` | INT8 quantized ResNet-18 model. |
-| `model/resnet18_model_data.h` | Embedded model data. |
+| `model/resnet18_model_data.h` | Embedded model data generated from the TFLite model. |
 | `model/resnet18_ops_resolver.h` | TFLM operator resolver configuration. |
 | `model/resnet18_test_image.h` | Embedded test image. |
 | `model/imagenet_classes.txt` | ImageNet class labels. |
+| `xqmac8/xqmac8.h` | Xqmac8 instruction implementation for Spike. |
+| `xqmac8/XQMAC8_SPEC.md` | Custom Xqmac8 instruction specification. |
 
 **scripts/ — Model preparation and analysis tools**
 
 | File | Description |
 |---|---|
-| `prepare_model.py` | Model preparation. |
-| `analyze_pc_histogram.py` | PC histogram analysis. |
-| `analyze_instruction_mix.py` | Dynamic instruction-mix analysis. |
-| `analyze_model_macs.py` | Theoretical model MAC estimation. |
-| `analyze_operator_contribution.py` | Operator contribution analysis. |
+| `prepare_model.py` | Reads the TFLite model and generates header files required by the inference program. |
+| `compare_versions.py` | Compares Spike instruction histogram results between different configurations. |
 
-**results/B0_measurement/ — B0 measurement results**
+**results/ — Experimental results and analysis**
 
 | File | Description |
 |---|---|
-| `resnet18_b0_pc_histogram.txt` | Raw Spike PC histogram. |
-| `instruction_mix_summary.txt` | Dynamic instruction distribution. |
-| `model_mac_summary.md` | Model MAC analysis. |
-| `operator_contribution.txt` | Operator contribution estimates. |
-| `histogram_analysis/summary.txt` | Histogram statistics. |
-| `histogram_analysis/top_pcs.csv` | Most frequently executed PCs. |
-
-**results/slides/** — Project presentation slides.
+| `b0_summary.txt` | B0 baseline histogram analysis. |
+| `b1_summary.txt` | B1 software optimization results. |
+| `x1.1_xqmac8_summary.txt` | X1.1 Xqmac8 results. |
+| `x1.2_xqmac8_summary.txt` | X1.2 Xqmac8 results. |
+| `Zicclsm_X1.3_summary.txt` | X1.3 results with Zicclsm enabled. |
+| `alignmentCheck.txt` | Runtime memory-address alignment analysis for packed INT8 loads. |
+| `tensor_shape_summary.txt` | Tensor shape analysis of the quantized TFLite model. |
+| `slides/Midterm.pptx` | Midterm project presentation. |
 
 ---
 
-## 3. B0 Measurement Results
-
-### Experimental Configuration
+## 3. Experimental Configuration
 
 | Configuration | Value |
 |---|---|
 | Model | Quantized ResNet-18 |
-| Input / Output | INT8 |
-| ISA | RV64IMC |
+| Weight / Activation | INT8 / INT8 (W8A8) |
+| ISA baseline | RV64IMC |
 | ABI | LP64 |
 | Compiler | GCC 16.1.0 |
-| Optimization | -O2 |
+| Compiler optimization | -O2 |
 | Simulator | Spike 1.1.1-dev |
 | Runtime | TensorFlow Lite for Microcontrollers |
-| Execution | Spike + pk |
+| Execution environment | Spike + Proxy Kernel (pk) |
 | Tensor Arena | 2 MiB |
 
-### 3.1 Inference Results
-
-| Metric | Result |
-|---|---:|
-| AllocateTensors | PASS |
-| Invoke | PASS |
-| Top-1 Class Index | 245 |
-| Top-1 Quantized Score | 40 |
-
-### 3.2 Dynamic Instruction Count
-
-Measured using `rdinstret` immediately before and after `interpreter.Invoke()`.
-
-| Metric | Result |
-|---|---:|
-| Retired Instructions | 82,907,465,609 |
-| Equivalent Scale | ~82.907 billion |
-
-This is the primary B0 dynamic-instruction baseline.
-
-### 3.3 Dynamic Instruction Mix
-
-Based on Spike PC histogram and disassembly analysis.
-
-| Instruction Category | Dynamic Count | Percentage |
-|---|---:|---:|
-| Load | 17,301,635,179 | 20.870% |
-| Store | 178,384,500 | 0.215% |
-| Integer ALU | 21,041,446,086 | 25.382% |
-| Multiply | 11,859,266,659 | 14.305% |
-| Branch / Control Transfer | 32,519,371,645 | 39.227% |
-| **Total Matched** | **82,900,104,069** | **100.000%** |
-
-Note: 3,848 histogram PCs (27,180,642 dynamic counts) could not be matched to disassembly instructions. Percentages above are calculated from matched instructions only.
-
-### 3.4 Model MAC Analysis
-
-| Operator | Operator Count | MACs | Percentage |
-|---|---:|---:|---:|
-| CONV_2D | 20 | 1,813,561,344 | 99.9718% |
-| FULLY_CONNECTED | 1 | 512,000 | 0.0282% |
-| **Total** | **21** | **1,814,073,344** | **100%** |
-
-| Metric | Result |
-|---|---:|
-| Theoretical MAC Count | 1,814,073,344 |
-| Retired Instructions | 82,907,465,609 |
-| MACs per Retired Instruction | 0.021881 |
-| Retired Instructions per MAC | ~45.70 |
-
-MAC count is statically estimated from the TFLite model graph and tensor shapes.
-
-### 3.5 Operator Contribution
-
-Preliminary symbol-based attribution results:
-
-| Function / Operator | Dynamic Count |
-|---|---:|
-| ConvPerChannel() clone | 82,606,450,546 |
-| MultiplyByQuantizedMultiplier | 91,014,458 |
-| EvalAddQuantized | 90,605,848 |
-| MaxPool | 69,684,988 |
-| PadImpl | 27,541,091 |
-
-Convolution accounts for approximately 99.65% of the attributed dynamic instruction count.
-
-These results are preliminary estimates based on disassembly symbols and operator grouping.
-
-### 3.6 Code Size
-
-| Metric | Result |
-|---|---:|
-| ELF File Size | 12,622,552 bytes |
-| .text Section Size | 179,694 bytes |
-| Total Executable Section Size | 179,694 bytes |
-
-The executable-section size is used as the primary code-size metric.
+Spike is used for functional ISA-level simulation and dynamic instruction analysis. It is not a cycle-accurate simulator, so the reported instruction counts must not be interpreted as hardware cycle counts or execution-time speedups.
 
 ---
 
-## 4. Current Limitations and Future Work
+## 4. Optimization Progress
 
-### Current Limitations
+### 4.1 B0 — Baseline RV64IMC
 
-- Only B0 baseline characterization has been completed.
-- 3,848 histogram PCs remain unmatched to disassembly instructions.
-- Operator contribution analysis is preliminary.
-- No custom ISA instructions have been implemented.
-- No CV-Wally RTL performance evaluation has been conducted.
-- Cycle count, CPI, clock frequency, and hardware resource overhead have not been measured.
+B0 is the original software implementation using scalar INT8 multiply-accumulate operations.
 
-Spike is used for ISA-level analysis and is not a cycle-accurate representation of CV-Wally.
+It serves as the baseline for evaluating subsequent software optimizations and custom ISA extensions.
 
-### Future Work
+### 4.2 B1 — 4-way Loop Unrolling
 
-| Configuration | Description | Status |
+The convolution implementation was optimized using 4-way loop unrolling.
+
+The purpose is to reduce loop-control overhead, including branch and loop-index update instructions, while preserving the original scalar MAC computation.
+
+### 4.3 X1.1 — Xqmac8 with Software Data Packing
+
+A custom instruction, `xqmac8`, was implemented in Spike.
+
+The instruction performs eight signed INT8 multiplications and accumulates their sum into a 64-bit destination register.
+
+```asm
+xqmac8 rd, rs1, rs2
+```
+
+The two source registers contain eight packed signed INT8 values each.
+
+The initial TFLM integration uses a software packing loop to collect eight activation values and eight weight values before executing Xqmac8.
+
+Although the custom instruction reduces the number of MAC instructions, software data-packing overhead increases the overall dynamic instruction count.
+
+### 4.4 X1.2 — Unrolled Software Data Packing
+
+The X1.1 packing loop was manually unrolled to eliminate its inner-loop control overhead.
+
+This reduces the overhead of preparing packed INT8 operands, while retaining the same Xqmac8 computation.
+
+However, the packing operations themselves remain, and the resulting instruction count is still slightly higher than B1.
+
+### 4.5 X1.3 — 64-bit Load for Packed INT8 Data
+
+X1.3 replaces byte-by-byte software packing with 64-bit loads.
+
+Since eight consecutive INT8 values occupy exactly 64 bits, a single `LD` can load an entire packed operand.
+
+This significantly reduces the software packing overhead.
+
+However, some weight pointers are not naturally 8-byte aligned. Under the base RV64IMC execution environment, misaligned 64-bit loads may raise exceptions and require software emulation through the execution environment.
+
+Therefore, the current X1.3 experiment enables the Zicclsm extension to support misaligned loads and stores in the Spike simulation environment.
+
+**Important:** X1.3 is currently evaluated under RV64IMC + Zicclsm, not pure RV64IMC. Its instruction count must therefore be interpreted separately from configurations evaluated under RV64IMC.
+
+---
+
+## 5. Evaluation
+
+### 5.1 Dynamic Instruction Count
+
+The following table summarizes the measured dynamic instruction counts for each configuration.
+
+| Configuration | Optimization | Dynamic Instructions |
+|---|---|---:|
+| B0 | Original scalar MAC | 82.93B |
+| B1 | 4-way loop unrolling | 64.08B |
+| X1.1 | Xqmac8 + software packing loop | 93.52B |
+| X1.2 | Xqmac8 + unrolled software packing | 65.08B |
+| X1.3 | Xqmac8 + 64-bit LD (Zicclsm) | 25.64B |
+
+### 5.2 Comparison
+
+Relative to B0:
+
+| Configuration | Dynamic Instruction Reduction |
+|---|---:|
+| B1 | 22.7% |
+| X1.1 | -12.8% |
+| X1.2 | 21.5% |
+| X1.3 | 69.1% |
+
+Relative to B1:
+
+| Configuration | Dynamic Instruction Reduction |
+|---|---:|
+| X1.1 | -46.0% |
+| X1.2 | -1.6% |
+| X1.3 | 60.0% |
+
+A negative reduction indicates an increase in dynamic instruction count.
+
+### 5.3 Observations
+
+- B1 demonstrates that software loop unrolling can effectively reduce loop-control overhead.
+- X1.1 shows that introducing a custom MAC instruction does not automatically improve overall instruction efficiency. Software operand-packing overhead can outweigh the benefits of the custom instruction.
+- X1.2 reduces packing-loop overhead through manual unrolling, bringing its instruction count close to B1.
+- X1.3 demonstrates the benefit of directly loading packed INT8 operands using 64-bit loads, reducing the dynamic instruction count substantially.
+- The current X1.3 result relies on Zicclsm support for misaligned memory accesses and is not yet a pure RV64IMC result.
+
+These measurements represent dynamic instruction counts, not execution cycles or hardware speedups.
+
+---
+
+## 6. Functional Correctness
+
+Functional correctness is evaluated by comparing the quantized inference outputs across different configurations.
+
+For the tested input image, the following configurations produced identical results:
+
+- B0
+- B1
+- X1.1
+- X1.2
+- X1.3
+
+The comparison covers all 1,000 output class scores, not only the Top-1 prediction.
+
+| Metric | Result |
+|---|---|
+| Number of output classes | 1,000 |
+| Top-1 class index | Identical across configurations |
+| Top-1 quantized score | Identical across configurations |
+| Output score mismatches | 0 |
+| Identical output scores | 1,000 / 1,000 |
+
+
+These results demonstrate numerical equivalence for the tested input and successful execution of the basic Xqmac8 instruction tests.
+
+**Note:** This is a numerical-equivalence and functional-correctness test. It does not represent a complete ImageNet validation accuracy measurement.
+
+---
+
+## 7. Current Limitations
+
+- X1.3 currently relies on Zicclsm for misaligned 64-bit loads.
+- Pure RV64IMC execution of X1.3 may incur substantial software-emulation overhead for misaligned memory accesses. A complete performance measurement under this configuration has not been obtained.
+- Functional equivalence has been verified using the tested inference input, but broader multi-image validation remains future work.
+- ImageNet Top-1 and Top-5 accuracy of the W8A8 model have not been independently measured.
+- Spike is not cycle-accurate, so CPI, hardware cycle count, clock frequency, and actual hardware speedup have not been measured.
+- CV-Wally RTL integration and hardware-level evaluation have not yet been completed.
+
+---
+
+## 8. Future Work
+
+| Configuration / Task | Description | Status |
 |---|---|---|
-| B0 | Baseline RV64IMC | Completed |
-| B1 | Software-optimized RV64IMC | Pending |
-| X1 | RV64IMC + Xqmac | Pending |
+| X1.4 | Alignment-aware data layout to enable 64-bit loads under pure RV64IMC | Planned |
+| Correctness validation | Test numerical equivalence across additional input images | Planned |
+| Model accuracy | Evaluate W8A8 model using labeled validation data | Planned |
 | X2 | Additional architectural extension | Pending |
-| CV-Wally | RTL evaluation of a representative kernel | Pending |
+| CV-Wally RTL | Integrate and evaluate a representative custom instruction kernel | Pending |
 
 Future evaluation will focus on:
 
 - Dynamic instruction reduction.
-- MACs per instruction.
+- MACs per retired instruction.
 - Load/store instructions per MAC.
-- Custom-instruction frequency.
+- Custom instruction frequency.
 - Code-size changes.
-- Hardware cycle count, CPI, and speedup.
+- Hardware cycle count and CPI after RTL integration.
 
-The objective is to evaluate the effectiveness of architectural extensions for quantized neural-network inference.
+The overall objective is to investigate how custom ISA extensions and software/data-layout optimizations can improve quantized neural-network inference on resource-constrained RISC-V processors.
 
